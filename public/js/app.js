@@ -28972,8 +28972,8 @@ var rootReducer = (0, _redux.combineReducers)({
         users: _reducer2.default
 });
 
-var store = (0, _redux.createStore)(rootReducer, _redux.applyMiddleware.apply(undefined, middlewareList));
-// const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+// const store = createStore(rootReducer, applyMiddleware(...middlewareList));
+var store = (0, _redux.createStore)(rootReducer, (0, _redux.applyMiddleware)(sagaMiddleware));
 
 sagaMiddleware.run(_rootSaga2.default);
 
@@ -68739,7 +68739,14 @@ var List = function (_React$Component) {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
             page: 1,
-            hasMoreItems: true
+            hasMoreItems: true,
+            lastPage: 3,
+            perPage: 10,
+            total: 30
+        }, _this.getMoreUsers = function (pageS) {
+            var lastPage = _this.state.lastPage;
+            var page = _this.state.page;
+            var nextPage = parseInt(page, 10) + 1;
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -68752,6 +68759,21 @@ var List = function (_React$Component) {
         key: 'handleDelete',
         value: function handleDelete(id) {
             this.props.deleteUser(id);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var listSize = nextProps.users.size;
+
+            if (listSize > 0) {
+
+                this.setState({
+                    total: listSize,
+                    perPage: 10,
+                    page: 1,
+                    lastPage: 8
+                });
+            }
         }
     }, {
         key: 'render',

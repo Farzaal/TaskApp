@@ -11,6 +11,9 @@ class List extends React.Component {
     state = {
       page: 1,
       hasMoreItems : true,
+      lastPage : 3,
+      perPage: 10,
+      total : 30
     }
 
     componentWillMount() {
@@ -19,6 +22,26 @@ class List extends React.Component {
 
     handleDelete(id) {
         this.props.deleteUser(id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const listSize = nextProps.users.size;
+        
+        if(listSize > 0) {
+
+            this.setState({
+                total : listSize,
+                perPage : 10,
+                page : 1,
+                lastPage : 8
+            });
+        }
+    }
+
+    getMoreUsers = (pageS) => {
+        const lastPage = this.state.lastPage;
+        const page = this.state.page;
+        const nextPage = parseInt(page, 10) + 1;
     }
 
     render() {

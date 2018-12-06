@@ -19,8 +19,8 @@ const rootReducer =  combineReducers({
 });
 
 
-const store = createStore(rootReducer, applyMiddleware(...middlewareList));
-// const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+// const store = createStore(rootReducer, applyMiddleware(...middlewareList));
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
