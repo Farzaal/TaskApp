@@ -25,8 +25,13 @@ class TestController extends Controller
         }
     }
 
-    public function listUsers() {
-        return User::all();
+    // lastPage, perPage, page, total
+    // return User::skip(0)->take($per)->get();
+    public function listUsers($per, $page=null) {
+        //Calculate Total Pages
+        $totalUsers = count(User::all());
+        $lastPage = round($totalUsers/$per)+1;
+        return $lastPage;
     }
 
     public function deleteUser(Request $request) {

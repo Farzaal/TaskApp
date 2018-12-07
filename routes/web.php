@@ -16,5 +16,5 @@ Route::get('/', function () {
 });
  
 Route::post('/create/user', ['uses' => 'TestController@createUser', 'as' => 'createUser']);
-Route::get('/list/user', ['uses' => 'TestController@listUsers', 'as' => 'listUsers']);
+Route::get('/list/user/{per?}/{page?}', ['uses' => 'TestController@listUsers', 'as' => 'listUsers']);
 Route::post('/user/delete', ['uses' => 'TestController@deleteUser', 'as' => 'deleteUser']);
